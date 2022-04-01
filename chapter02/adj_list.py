@@ -1,8 +1,8 @@
 class AdjList:
 
-    def __init__(self, filename:str):
+    def __init__(self, filename: str):
         self._filename = filename
-        lines = None
+
         with open(filename, 'r') as f:
             lines = f.readlines()
         if not lines:
@@ -12,8 +12,10 @@ class AdjList:
         # 从第一行中读取顶点数和边数
         self._V, self._E = (int(i) for i in lines[0].split())
 
-        if self._V < 0: raise ValueError('V must be non-negative')
-        if self._E < 0: raise ValueError('E must be non-negative')
+        if self._V < 0:
+            raise ValueError('V must be non-negative')
+        if self._E < 0:
+            raise ValueError('E must be non-negative')
 
         self._adj = [[] for _ in range(self._V)]
         for each_line in lines[1:]:
@@ -29,7 +31,6 @@ class AdjList:
 
             self._adj[a].append(b)
             self._adj[b].append(a)
-
 
     @property
     def V(self):
@@ -55,6 +56,7 @@ class AdjList:
 
     def __copy__(self):
         return AdjList(self._filename)
+
 
 if __name__ == '__main__':
     filename = 'g.txt'
