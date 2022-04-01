@@ -26,7 +26,7 @@ class AdjList:
             if a == b:
                 raise ValueError('self-loop is detected!')
 
-            if self._adj[a].count(b):
+            if b in self._adj[a]:
                 raise ValueError('Parallel edges are detected!')
 
             self._adj[a].append(b)
@@ -40,6 +40,27 @@ class AdjList:
     def E(self):
         return self._E
 
+    def has_edge(self, v, w):
+        self._validate_vertex(v)
+        self._validate_vertex(w)
+        return w in self._adj[v]
+
+    def adj(self, v):
+        self._validate_vertex(v)
+        return self._adj[v]
+
+    def degree(self, v):
+        self._validate_vertex(v)
+        return len(self.adj(v))
+
+    def remove_edge(self, v, w):
+        self._validate_vertex(v)
+        self._validate_vertex(w)
+        if w in self._adj[v]:
+            self._adj[v].remove(w)
+        if v in self._adj[w]:
+            self._adj[w].remove(v)
+            
     def _validate_vertex(self, v):
         if v < 0 or v >= self._V:
             raise ValueError('vertex ' + v + ' is invalid')
