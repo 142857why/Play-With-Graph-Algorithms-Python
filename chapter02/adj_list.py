@@ -50,7 +50,7 @@ class AdjList:
         return self._adj[v]
 
     def degree(self, v):
-        self._validate_vertex(v)
+        # self._validate_vertex(v)
         return len(self.adj(v))
 
     def remove_edge(self, v, w):
@@ -60,7 +60,7 @@ class AdjList:
             self._adj[v].remove(w)
         if v in self._adj[w]:
             self._adj[w].remove(v)
-            
+
     def _validate_vertex(self, v):
         if v < 0 or v >= self._V:
             raise ValueError('vertex ' + v + ' is invalid')

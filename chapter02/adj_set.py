@@ -49,7 +49,7 @@ class AdjSet:
         return self._adj[v]
 
     def degree(self, v):
-        self.validate_vertex(v)
+        # self.validate_vertex(v)
         return len(self.adj(v))
 
     def remove_edge(self, v, w):
