@@ -1,6 +1,7 @@
 class AdjList:
 
     def __init__(self, filename:str):
+        self._filename = filename
         lines = None
         with open(filename, 'r') as f:
             lines = f.readlines()
@@ -52,6 +53,8 @@ class AdjList:
     def __repr__(self):
         return self.__str__()
 
+    def __copy__(self):
+        return AdjList(self._filename)
 
 if __name__ == '__main__':
     filename = 'g.txt'
