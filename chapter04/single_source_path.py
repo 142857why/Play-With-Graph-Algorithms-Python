@@ -25,18 +25,18 @@ class SingleSourcePath:
 
     ## This is actually like BFS ?
     def _dfs_iteration(self, v, parent):
-        stack = [v]
-        self._visited[v] = True
-        self._pre[v] = parent
+        stack = [(v, parent)]
         while stack:
-            print(stack)
-            curr = stack.pop()
-            neighbour_list = list(self._G.adj(curr))[::-1]
+            # print(stack)
+            curr, currParent = stack.pop()
+            if not self._visited[curr]:
+                self._pre[curr] = currParent
+
+                self._visited[curr] = True
+            neighbour_list = list(self._G.adj(curr))[::-1] # [::-1] 是为了保持递归与非递归结果一致
             for w in neighbour_list:
                 if not self._visited[w]:
-                    stack.append(w)
-                    self._visited[w] = True
-                    self._pre[w] = curr
+                    stack.append((w, curr))
 
     def is_connected_to(self, t):
         # 在初始化后s才会调用该函数，因此直接返回t是否被访问即可知道与s相连与否
@@ -60,10 +60,11 @@ class SingleSourcePath:
     def pre(self):
         return self._pre
 
+
 if __name__ == '__main__':
     filename = 'g1.txt'
     g = Graph(filename)
-    print(g)
+    # print(g)
 
     # ssp stands for single_source_path
     ssp = SingleSourcePath(g, 0, recursive=True)
